@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content">
+		<EditText android:id="@+id/textJudul" android:hint="Roma Irama"
+			android:layout_width="270px" android:layout_height="wrap_content"></EditText>
+		<Button android:id="@+id/btnSearch" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:background="@drawable/icon"></Button>
+	</LinearLayout>
+
+	<ListView android:id="@id/android:list" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1"
+		android:drawSelectorOnTop="false"></ListView>
+
+	<TextView android:id="@id/android:empty" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Please search your music"></TextView>
+</LinearLayout>
