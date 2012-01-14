@@ -1,5 +1,6 @@
 package com.laabroo.android.s4s;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,24 +9,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.app.ListActivity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-import android.view.View.OnClickListener;
 
 import com.laabroo.android.s4s.util.ConvertXml;
 
 public class MainActivity extends ListActivity {
-	private static final String TAG = "MainActivity";
-	private EditText editText;
-	private Button btnSearch;
+
 	private String param;
 
 	@Override
@@ -33,26 +31,9 @@ public class MainActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listmusic);
 
-		editText = (EditText) findViewById(R.id.textJudul);
-		btnSearch = (Button) findViewById(R.id.btnSearch);
-		btnSearch.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				param = editText.getText().toString();
-				if (param.equals("")) {
-					Toast.makeText(MainActivity.this,
-							"Title Canot be null" + param, Toast.LENGTH_LONG)
-							.show();
-				} else {
-					getMusic(param);
-				}
-			}
-		});
-	}
-
-	public void getMusic(String url) {
+		param = "anggun";
 		ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-		String dataXMl = ConvertXml.getXML(url);
+		String dataXMl = ConvertXml.getXML(param);
 		Document document = ConvertXml.XmlFromString(dataXMl);
 
 		NodeList nodeList = document.getElementsByTagName("file");
@@ -86,12 +67,30 @@ public class MainActivity extends ListActivity {
 				HashMap<String, String> obj = (HashMap<String, String>) listView
 						.getItemAtPosition(position);
 				String url = new String(obj.get("flash-preview-url"));
+				playMusic(url);
 				Toast.makeText(MainActivity.this, "Url preview '" + url,
 						Toast.LENGTH_LONG).show();
 			}
 
 		});
 
+	}
+
+	private void playMusic(String url) {
+		MediaPlayer mediaPlayer = new MediaPlayer();
+		try {
+			mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			mediaPlayer.setDataSource(url);
+			mediaPlayer.prepare();
+
+			if (mediaPlayer.isPlaying()) {
+				mediaPlayer.stop();
+			} else {
+				mediaPlayer.start();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

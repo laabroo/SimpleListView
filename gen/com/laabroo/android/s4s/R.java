@@ -15,12 +15,10 @@ public final class R {
         public static final int play=0x7f020001;
     }
     public static final class id {
-        public static final int btnPlay=0x7f050005;
-        public static final int btnSearch=0x7f050001;
-        public static final int item_size=0x7f050004;
-        public static final int item_title=0x7f050002;
-        public static final int item_update=0x7f050003;
-        public static final int textJudul=0x7f050000;
+        public static final int btnPlay=0x7f050003;
+        public static final int item_size=0x7f050002;
+        public static final int item_title=0x7f050000;
+        public static final int item_update=0x7f050001;
     }
     public static final class layout {
         public static final int listmusic=0x7f030000;
